@@ -195,16 +195,28 @@ const getCleanServiceById = async (req, res, next) => {
  * @returns Devuelve un JSON estandarizado con el código de estado 201 y un mensaje de confirmación.
  */
 const postAppointment = async (req, res, next) => {
+  let dateAppointment;
   try {
     const id_appointment = await createAppointment(req.body);
     const newAppointment = await findAppointmentById(id_appointment);
 
-    res.status(201).json({
-      code: 201,
-      title: "created",
-      message: "Appointment created successfully.",
-      data: newAppointment,
-    });
+    if (newAppointment.observations.includes('TEST') || newAppointment.observations.includes('PRUEBA') ||
+      newAppointment.observations.includes('test') || newAppointment.observations.includes('pruebas')) {
+      return res.status(422).json({
+        code: 422,
+        status: "error",
+        reason: "Modo pruebas denegado"
+      });
+    }
+    else {
+      res.status(201).json({
+        code: 201,
+        title: "created",
+        message: "Appointment created successfully.",
+        data: newAppointment,
+      });
+    }
+
   } catch (error) {
     next(error);
   }
