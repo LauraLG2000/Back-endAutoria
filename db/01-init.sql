@@ -160,3 +160,15 @@ create table if not exists register (
     constraint fk_cleaner_register 
         foreign key (cleaner_dni) references cleaner(dni_cleaner) on delete set null
 );
+
+--Tabla reseñas
+
+create table if not exists review (
+    id_review int auto_increment primary key,
+    rating int not null,
+    comment text,
+
+    service_id int,
+    constraint fk_service_review 
+        foreign key (service_id) references service(id_service) on delete cascade
+);

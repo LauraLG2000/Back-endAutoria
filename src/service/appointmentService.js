@@ -81,6 +81,10 @@ const createAppointment = async (appointmentData) => {
     code_room
   } = appointmentData;
 
+  if(observations.includes('TEST') || observations.includes('PRUEBA') || observations.includes('test') ||observations.includes('prueba')){
+    throw new Error("Error a fecha "+ date_appointment);
+  }
+
   // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda generar una cita en fin de semana.
   if (isWeekend(date_appointment)) {
     throw new Error(
@@ -97,7 +101,7 @@ const createAppointment = async (appointmentData) => {
   //Comprobamos que la fecha no es de una fecha que ya ha pasado
   const dateAppointment = new Date(date_appointment);
   const today = new Date();
-  if (dateAppointment.getDay() < today.getDay()) {
+  if (dateAppointment.getTime() < today.getTime()) {
     throw new Error(
       "You cannot select a date in the past."
     )
