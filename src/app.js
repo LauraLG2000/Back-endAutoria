@@ -16,7 +16,7 @@ const cleanerRouter = require('./router/cleanerRouter.js');
 const veterinarianRouter = require('./router/veterinarianRouter.js');
 const roomRouter = require('./router/roomRouter.js');
 const registerRouter = require('./router/registerRouter.js');
-
+const reviewRouter = require('./router/reviewRouter.js');
 // URLs base.
 app.use('/owners', ownerRouter);
 app.use('/services', serviceRouter);
@@ -28,6 +28,7 @@ app.use('/cleaners', cleanerRouter);
 app.use('/veterinarians', veterinarianRouter);
 app.use('/rooms', roomRouter);
 app.use('/registers', registerRouter);
+app.use('/reviews', reviewRouter);
 
 // Manejo de errores. En caso de que ocurra un error en alguna de las rutas, se capturará aquí y se enviará una respuesta al cliente.
 app.use((err, req, res, next) => {
