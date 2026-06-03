@@ -97,13 +97,13 @@
           "response": []
         },
         {
-          "name": "./vettion/reviews KO",
+          "name": "./vettion/reviews rating KO",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 201\", function() {\r",
+                  "pm.test(\"Status code is 400\", function() {\r",
                   "    pm.response.to.have.status(400);\r",
                   "});\r",
                   "\r",
@@ -124,6 +124,54 @@
             "body": {
               "mode": "raw",
               "raw": "{\r\n    \"rating\": 10,\r\n    \"comment\": \"Podría ser mejor\",\r\n    \"service_id\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "./vettion/reviews service KO Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function() {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rating\": 1,\r\n    \"comment\": \"Podría ser mejor\",\r\n    \"service_id\":10\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
